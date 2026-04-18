@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PawPals — Dog Health, Exercise & Social App | A lifetime of tail wags</title>
+<meta name="description" content="Track your dog's health, log walks with GPS, and share life's best moments. PawPals is the all-in-one dog app for Australian pet owners. Free on iOS.">
+<meta name="keywords" content="dog tracking app, pet health app, dog walk tracker, vet reminder app, dog social app, pet care app Australia, puppy tracker app iOS">
+<meta property="og:title" content="PawPals — A lifetime of tail wags">
+<meta property="og:description" content="The all-in-one app for tracking your dog's health, walks & social sharing. Free on iOS.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pawpalsapp.com.au">
+<meta property="og:image:alt" content="PawPals app — illustrated spoodle mascot with the headline A lifetime of tail wags on a warm cream background">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paw-blue: #4A9FE0;
+  --paw-blue-deep: #2B7DC4;
+  --paw-blue-mist: #E8F4FD;
+  --paw-cream: #FFF8F0;
+  --paw-warm-cream: #FFE8CC;
+  --paw-coral: #FF7B6B;
+  --paw-brown: #C8956A;
+  --paw-brown-dark: #7A4F2D;
+  --paw-brown-mid: #A87848;
+  --paw-dark: #1A2B3C;
+  --paw-text-mid: #4A6070;
+  --paw-text-soft: #8FA8B8;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--paw-cream);
+  color: var(--paw-dark);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════
+   NAV
+═══════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.35s, box-shadow 0.35s;
+}
+
+.nav.scrolled {
+  background: rgba(255, 248, 240, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 2px 24px rgba(168, 120, 72, 0.1);
+}
+
+.nav-logo {
+  font-family: 'Fredoka One', cursive;
+  font-size: 24px;
+  color: var(--paw-dark);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--paw-blue-deep); }
+
+.nav-cta {
+  background: var(--paw-blue-deep);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 10px 22px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 16px rgba(43, 125, 196, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(43, 125, 196, 0.4);
+}
+
+/* ═══════════════════════════
+   HERO
+═══════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 40px 80px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(165deg, var(--paw-cream) 0%, var(--paw-warm-cream) 55%, #FFD5A8 100%);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(74,159,224,0.08), transparent 70%);
+  top: -100px; left: -100px;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,123,107,0.06), transparent 70%);
+  bottom: -80px; right: -80px;
+  pointer-events: none;
+}
+
+.hero-inner {
+  max-width: 1100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-text { flex: 1; max-width: 520px; }
+
+.hero-eyebrow {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--paw-blue);
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.2s ease forwards;
+}
+
+.hero-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(40px, 6vw, 58px);
+  color: var(--paw-dark);
+  line-height: 1.05;
+  margin-bottom: 8px;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.35s ease forwards;
+}
+.hero-title span { color: var(--paw-blue-deep); }
+
+.hero-tagline {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--paw-brown-mid);
+  letter-spacing: 2px;
+  font-style: italic;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.5s ease forwards;
+}
+
+.hero-desc {
+  font-size: 16px;
+  color: var(--paw-text-mid);
+  line-height: 1.75;
+  margin-bottom: 32px;
+  max-width: 440px;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.65s ease forwards;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.8s ease forwards;
+}
+
+.btn-app-store {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--paw-dark);
+  color: white;
+  border-radius: 14px;
+  padding: 12px 24px;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-app-store:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(26, 43, 60, 0.25);
+}
+.btn-app-store .store-top {
+  font-size: 9px;
+  letter-spacing: 0.8px;
+  opacity: 0.7;
+  text-transform: uppercase;
+  display: block;
+}
+.btn-app-store .store-main {
+  font-family: 'Nunito', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1;
+  display: block;
+}
+
+.btn-learn {
+  background: white;
+  color: var(--paw-dark);
+  border: 2px solid rgba(200, 149, 106, 0.25);
+  border-radius: 14px;
+  padding: 12px 26px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-learn:hover {
+  border-color: var(--paw-blue);
+  color: var(--paw-blue-deep);
+}
+
+.hero-mascot {
+  flex-shrink: 0;
+  animation: float 4s ease-in-out infinite;
+  opacity: 0;
+  animation: float 4s ease-in-out infinite, fadeIn 1s 0.6s ease forwards;
+}
+
+/* ═══════════════════════════
+   FEATURES
+═══════════════════════════ */
+.features {
+  padding: 100px 40px;
+  background: white;
+  position: relative;
+}
+
+.features::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(200,149,106,0.2), transparent);
+}
+
+.section-header {
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto 64px;
+}
+
+.section-eyebrow {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--paw-blue);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(28px, 4vw, 36px);
+  color: var(--paw-dark);
+  margin-bottom: 14px;
+}
+
+.section-desc {
+  font-size: 15px;
+  color: var(--paw-text-mid);
+  line-height: 1.7;
+}
+
+.features-grid {
+  max-width: 1060px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.feature-card {
+  background: var(--paw-cream);
+  border-radius: 24px;
+  padding: 36px 28px 32px;
+  border: 1px solid rgba(200, 149, 106, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  border-radius: 24px 24px 0 0;
+  background: var(--paw-blue);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(168, 120, 72, 0.12);
+}
+.feature-card:hover::after { opacity: 1; }
+
+.feature-card:nth-child(4)::after,
+.feature-card:nth-child(5)::after,
+.feature-card:nth-child(6)::after {
+  background: var(--paw-coral);
+}
+
+.feature-icon {
+  font-size: 36px;
+  margin-bottom: 18px;
+  display: block;
+}
+
+.feature-title {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--paw-dark);
+  margin-bottom: 10px;
+}
+
+.feature-desc {
+  font-size: 14px;
+  color: var(--paw-text-mid);
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════
+   SOCIAL PROOF / STATS
+═══════════════════════════ */
+.stats {
+  padding: 80px 40px;
+  background: linear-gradient(165deg, var(--paw-blue-mist) 0%, #F0F7FD 100%);
+  position: relative;
+}
+
+.stats-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+  min-width: 160px;
+}
+
+.stat-number {
+  font-family: 'Fredoka One', cursive;
+  font-size: 42px;
+  color: var(--paw-blue-deep);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--paw-text-mid);
+}
+
+.stat-divider {
+  width: 1px;
+  height: 56px;
+  background: rgba(43, 125, 196, 0.15);
+}
+
+/* ═══════════════════════════
+   PREMIUM
+═══════════════════════════ */
+.premium {
+  padding: 100px 40px;
+  background: white;
+}
+
+.premium-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: linear-gradient(155deg, var(--paw-dark) 0%, #2B3C50 100%);
+  border-radius: 32px;
+  padding: 56px 48px;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.premium-card::before {
+  content: '';
+  position: absolute;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(74,159,224,0.12), transparent 70%);
+  top: -60px; right: -60px;
+}
+
+.premium-text { flex: 1; position: relative; z-index: 2; }
+
+.premium-eyebrow {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--paw-blue);
+  margin-bottom: 12px;
+}
+
+.premium-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.premium-desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.75;
+  margin-bottom: 24px;
+}
+
+.premium-features {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 24px;
+  margin-bottom: 28px;
+}
+
+.premium-features li {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  padding-left: 22px;
+  position: relative;
+}
+.premium-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--paw-blue);
+  font-weight: 800;
+}
+
+.premium-price {
+  font-family: 'Fredoka One', cursive;
+  font-size: 28px;
+  color: white;
+  margin-bottom: 4px;
+}
+.premium-price .period {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+}
+
+.premium-note {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+}
+
+.premium-mascot {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  opacity: 0.9;
+}
+
+/* ═══════════════════════════
+   CTA BANNER
+═══════════════════════════ */
+.cta-section {
+  padding: 100px 40px;
+  background: linear-gradient(165deg, var(--paw-cream) 0%, var(--paw-warm-cream) 100%);
+  text-align: center;
+}
+
+.cta-inner {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(28px, 4vw, 38px);
+  color: var(--paw-dark);
+  margin-bottom: 16px;
+}
+
+.cta-desc {
+  font-size: 16px;
+  color: var(--paw-text-mid);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+/* ═══════════════════════════
+   FOOTER
+═══════════════════════════ */
+.footer {
+  background: var(--paw-dark);
+  padding: 48px 40px 32px;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: 'Fredoka One', cursive;
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+.footer-logo span { color: #7BBFEE; }
+
+.footer-tagline {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 2px;
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--paw-blue); }
+
+.footer-bottom {
+  font-size: 12px;
+  color: rgba(255,255,255,0.2);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 24px;
+}
+
+/* ═══════════════════════════
+   ANIMATIONS
+═══════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* Scroll-triggered fade */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════
+   RESPONSIVE
+═══════════════════════════ */
+@media (max-width: 768px) {
+  .nav { padding: 14px 20px; }
+  .hero { padding: 100px 24px 60px; }
+  .hero-inner { flex-direction: column; text-align: center; gap: 40px; }
+  .hero-text { max-width: 100%; }
+  .hero-desc { max-width: 100%; }
+  .hero-buttons { justify-content: center; }
+  .hero-mascot svg { width: 180px; height: auto; }
+  .features { padding: 72px 24px; }
+  .features-grid { grid-template-columns: 1fr; max-width: 420px; }
+  .stats { padding: 56px 24px; }
+  .stats-inner { gap: 32px; }
+  .stat-divider { display: none; }
+  .premium { padding: 72px 24px; }
+  .premium-card { flex-direction: column; padding: 40px 28px; text-align: center; }
+  .premium-features { grid-template-columns: 1fr; justify-items: center; }
+  .premium-features li { text-align: left; }
+  .premium-mascot svg { width: 140px; height: auto; }
+  .cta-section { padding: 72px 24px; }
+  .footer { padding: 40px 24px 28px; }
+}
+
+@media (max-width: 480px) {
+  .hero-title { font-size: 36px; }
+  .features-grid { gap: 18px; }
+  .feature-card { padding: 28px 22px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo"><span>Paw</span>Pals</a>
+  <a href="#" class="nav-cta">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    Download Free
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">🐾 Now Available on iOS</div>
+      <h1 class="hero-title"><span>Paw</span>Pals</h1>
+      <p class="hero-tagline">A lifetime of tail wags</p>
+      <p class="hero-desc">The one-stop app for tracking everything about your dog's life — health, exercise, and social sharing, all in one beautiful place.</p>
+      <div class="hero-buttons">
+        <a href="#" class="btn-app-store">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <div>
+            <span class="store-top">Download on the</span>
+            <span class="store-main">App Store</span>
+          </div>
+        </a>
+        <a href="#features" class="btn-learn">Learn More ↓</a>
+      </div>
+    </div>
+    <div class="hero-mascot">
+      <!-- Biscuit — Full Body (Option B from brand kit) -->
+      <svg viewBox="0 0 240 280" width="240" height="280" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="120" cy="268" rx="48" ry="7" fill="#A8C8E8" opacity="0.35"/>
+        <path d="M166 200 Q184 178 186 156 Q188 136 182 122 Q176 112 168 118 Q162 126 160 136" stroke="#C8956A" stroke-width="20" stroke-linecap="round" fill="none"/>
+        <path d="M168 196 Q182 176 184 156 Q186 138 180 124 Q174 116 168 120 Q164 128 162 136" stroke="#D8A87A" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.5"/>
+        <circle cx="160" cy="138" r="12" fill="#C8956A"/>
+        <circle cx="162" cy="134" r="8" fill="#D8A87A" opacity="0.6"/>
+        <ellipse cx="120" cy="206" rx="52" ry="48" fill="#C8956A"/>
+        <ellipse cx="120" cy="214" rx="44" ry="32" fill="#B8845A" opacity="0.15"/>
+        <rect x="82" y="168" width="76" height="10" rx="5" fill="#4A9FE0"/>
+        <rect x="84" y="170" width="72" height="6" rx="3" fill="#2B7DC4" opacity="0.4"/>
+        <circle cx="120" cy="186" r="13" fill="#4A9FE0"/>
+        <circle cx="120" cy="186" r="10.5" fill="#2B7DC4"/>
+        <ellipse cx="120" cy="189" rx="4" ry="3.2" fill="#E8F4FD"/>
+        <circle cx="116" cy="185" r="2" fill="#E8F4FD"/>
+        <circle cx="120" cy="183" r="2" fill="#E8F4FD"/>
+        <circle cx="124" cy="185" r="2" fill="#E8F4FD"/>
+        <ellipse cx="68" cy="114" rx="22" ry="36" fill="#7A4F2D" transform="rotate(-8 68 114)"/>
+        <ellipse cx="68" cy="116" rx="14" ry="24" fill="#9A6840" opacity="0.35" transform="rotate(-8 68 116)"/>
+        <ellipse cx="172" cy="114" rx="22" ry="36" fill="#7A4F2D" transform="rotate(8 172 114)"/>
+        <ellipse cx="172" cy="116" rx="14" ry="24" fill="#9A6840" opacity="0.35" transform="rotate(8 172 116)"/>
+        <circle cx="120" cy="105" r="52" fill="#C8956A"/>
+        <ellipse cx="108" cy="86" rx="24" ry="16" fill="#D8A87A" opacity="0.2"/>
+        <circle cx="108" cy="56" r="12" fill="#A87848"/>
+        <circle cx="120" cy="52" r="13" fill="#A87848"/>
+        <circle cx="132" cy="56" r="12" fill="#A87848"/>
+        <circle cx="102" cy="102" r="14" fill="white"/>
+        <circle cx="138" cy="102" r="14" fill="white"/>
+        <circle cx="104" cy="102" r="9" fill="#5C3A1A"/>
+        <circle cx="140" cy="102" r="9" fill="#5C3A1A"/>
+        <circle cx="104" cy="102" r="6" fill="#2B2020"/>
+        <circle cx="140" cy="102" r="6" fill="#2B2020"/>
+        <circle cx="108" cy="98" r="4" fill="white"/>
+        <circle cx="144" cy="98" r="4" fill="white"/>
+        <circle cx="101" cy="106" r="1.8" fill="rgba(255,255,255,0.5)"/>
+        <circle cx="137" cy="106" r="1.8" fill="rgba(255,255,255,0.5)"/>
+        <path d="M90 88 Q102 83 114 88" stroke="#7A4F2D" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <path d="M126 88 Q138 83 150 88" stroke="#7A4F2D" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <ellipse cx="120" cy="120" rx="9" ry="6.5" fill="#3A1A0A"/>
+        <ellipse cx="117" cy="118" rx="2.5" ry="1.8" fill="rgba(255,255,255,0.35)"/>
+        <path d="M106 131 Q120 143 134 131" stroke="#3A1A0A" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <ellipse cx="120" cy="140" rx="8" ry="7" fill="#FF8FA3"/>
+        <path d="M112 140 Q120 147 128 140" stroke="#E8607A" stroke-width="1.5" fill="none"/>
+        <ellipse cx="84" cy="122" rx="9" ry="5" fill="#FFB3A7" opacity="0.35"/>
+        <ellipse cx="156" cy="122" rx="9" ry="5" fill="#FFB3A7" opacity="0.35"/>
+        <ellipse cx="90" cy="250" rx="18" ry="12" fill="#B8845A"/>
+        <ellipse cx="90" cy="247" rx="16" ry="10" fill="#C8956A"/>
+        <ellipse cx="150" cy="250" rx="18" ry="12" fill="#B8845A"/>
+        <ellipse cx="150" cy="247" rx="16" ry="10" fill="#C8956A"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Everything Your Dog Needs</div>
+    <h2 class="section-title">One app. Every tail wag.</h2>
+    <p class="section-desc">PawPals combines health tracking, GPS exercise logging, and social sharing into one beautifully designed app.</p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <span class="feature-icon">🩺</span>
+      <h3 class="feature-title">Health Tracker</h3>
+      <p class="feature-desc">Vet appointments, vaccinations, and medication reminders — never miss a thing.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">🗺️</span>
+      <h3 class="feature-title">GPS Walk Tracking</h3>
+      <p class="feature-desc">Map every adventure with distance, duration, and route history. Like Strava, but for your dog.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">🐶</span>
+      <h3 class="feature-title">Dog Profiles</h3>
+      <p class="feature-desc">Breed, age, weight, microchip, allergies, and special needs — everything in one beautiful place.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">👨‍👩‍👧</span>
+      <h3 class="feature-title">Pawrents</h3>
+      <p class="feature-desc">Share one dog profile between multiple carers. Perfect for couples, families, and dog walkers.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">📸</span>
+      <h3 class="feature-title">Social Feed</h3>
+      <p class="feature-desc">Share photos with friends who love dogs just as much as you do. Likes, comments, and milestones.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">⭐</span>
+      <h3 class="feature-title">Badges & Records</h3>
+      <p class="feature-desc">Earn 32 unique badges and track personal records as your dog hits new milestones.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="stats-inner reveal">
+    <div class="stat-item">
+      <div class="stat-number">6.9M</div>
+      <div class="stat-label">Pet dogs in Australia</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-number">32</div>
+      <div class="stat-label">Badges to earn</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Free to get started</div>
+    </div>
+  </div>
+</section>
+
+<!-- PREMIUM -->
+<section class="premium" id="premium">
+  <div class="premium-card reveal">
+    <div class="premium-text">
+      <div class="premium-eyebrow">PawPals Premium</div>
+      <h2 class="premium-title">Unlock the full lifetime of tail wags</h2>
+      <p class="premium-desc">Everything in the free tier, plus the features serious dog lovers need.</p>
+      <ul class="premium-features">
+        <li>Unlimited dog profiles</li>
+        <li>Full GPS walk tracking</li>
+        <li>Pawrents co-owner sharing</li>
+        <li>Smart health reminders</li>
+        <li>Full social features</li>
+        <li>Vet document storage</li>
+      </ul>
+      <div class="premium-price">$6.99<span class="period"> /month</span></div>
+      <div class="premium-note">or $49.99/year · 7-day free trial</div>
+    </div>
+    <div class="premium-mascot">
+      <!-- Biscuit Excited expression (head only) -->
+      <svg viewBox="0 0 140 130" width="160" height="148" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="28" cy="60" rx="16" ry="26" fill="#7A4F2D" transform="rotate(-12 28 60)"/>
+        <ellipse cx="28" cy="61" rx="10" ry="18" fill="#9A6840" opacity="0.35" transform="rotate(-12 28 61)"/>
+        <ellipse cx="112" cy="60" rx="16" ry="26" fill="#7A4F2D" transform="rotate(12 112 60)"/>
+        <ellipse cx="112" cy="61" rx="10" ry="18" fill="#9A6840" opacity="0.35" transform="rotate(12 112 61)"/>
+        <circle cx="70" cy="60" r="38" fill="#C8956A"/>
+        <ellipse cx="62" cy="46" rx="18" ry="12" fill="#D8A87A" opacity="0.2"/>
+        <circle cx="62" cy="24" r="9" fill="#A87848"/>
+        <circle cx="70" cy="20" r="10" fill="#A87848"/>
+        <circle cx="78" cy="24" r="9" fill="#A87848"/>
+        <circle cx="56" cy="56" r="12" fill="white"/>
+        <circle cx="84" cy="56" r="12" fill="white"/>
+        <circle cx="58" cy="56" r="8" fill="#5C3A1A"/>
+        <circle cx="86" cy="56" r="8" fill="#5C3A1A"/>
+        <circle cx="58" cy="56" r="5" fill="#2B2020"/>
+        <circle cx="86" cy="56" r="5" fill="#2B2020"/>
+        <circle cx="62" cy="52" r="3.8" fill="white"/>
+        <circle cx="90" cy="52" r="3.8" fill="white"/>
+        <path d="M44 42 Q56 36 68 42" stroke="#7A4F2D" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M72 42 Q84 36 96 42" stroke="#7A4F2D" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <text x="10" y="38" font-size="9" fill="#FFD700" font-family="sans-serif">✦</text>
+        <text x="120" y="34" font-size="7" fill="#FFD700" font-family="sans-serif">✦</text>
+        <ellipse cx="70" cy="72" rx="6.5" ry="4.5" fill="#3A1A0A"/>
+        <path d="M54 80 Q70 94 86 80" stroke="#3A1A0A" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <ellipse cx="70" cy="88" rx="7" ry="5.5" fill="#FF8FA3"/>
+        <ellipse cx="42" cy="74" rx="7" ry="4" fill="#FFB3A7" opacity="0.45"/>
+        <ellipse cx="98" cy="74" rx="7" ry="4" fill="#FFB3A7" opacity="0.45"/>
+        <rect x="40" y="98" width="60" height="7" rx="3.5" fill="#4A9FE0"/>
+        <rect x="42" y="99.5" width="56" height="4" rx="2" fill="#2B7DC4" opacity="0.4"/>
+        <circle cx="70" cy="113" r="9.5" fill="#4A9FE0"/>
+        <circle cx="70" cy="113" r="7.5" fill="#2B7DC4"/>
+        <ellipse cx="70" cy="115.5" rx="3" ry="2.2" fill="#E8F4FD"/>
+        <circle cx="67" cy="112" r="1.5" fill="#E8F4FD"/>
+        <circle cx="70" cy="110.5" r="1.5" fill="#E8F4FD"/>
+        <circle cx="73" cy="112" r="1.5" fill="#E8F4FD"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <h2 class="cta-title">Ready to give your dog the best life?</h2>
+    <p class="cta-desc">Join thousands of Australian dog owners who track every walk, every vet visit, and every tail wag with PawPals.</p>
+    <a href="#" class="btn-app-store" style="display:inline-flex;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <div>
+        <span class="store-top">Download on the</span>
+        <span class="store-main">App Store</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo"><span>Paw</span>Pals</div>
+  <div class="footer-tagline">A lifetime of tail wags</div>
+  <div class="footer-links">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Use</a>
+    <a href="#">Support</a>
+    <a href="mailto:hello@pawpalsapp.com.au">Contact</a>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 PawPals. Made with 🐾 in Adelaide, Australia.
+  </div>
+</footer>
+
+<script>
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
